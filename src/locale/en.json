@@ -1,0 +1,10 @@
+{
+  "tabbar.home": "Home",
+  "tabbar.scan": "Scan",
+  "tabbar.mine": "Mine",
+  "app.name": "En Title",
+  "weight": "{heavy}KG",
+  "detail": "{0}cm, {1}KG",
+  "introduction": "I am {name},height:{detail.height},weight:{detail.weight}",
+  "login-page-title": "Welcome to Rupee plus"
+}
