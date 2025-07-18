@@ -117,6 +117,15 @@
           "style": {
             "navigationBarTitleText": "分包页面"
           }
+        },
+        {
+          "path": "demo/index22134213432423",
+          "type": "home",
+          "layout": "tabbar",
+          "style": {
+            "navigationStyle": "custom",
+            "navigationBarTitleText": "首页"
+          }
         }
       ]
     }

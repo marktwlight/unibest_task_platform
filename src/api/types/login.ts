@@ -2,18 +2,18 @@
  * 用户信息
  */
 export interface IUserInfoVo {
-  id: number
   username: string
-  avatar: string
+  userCode: string
   token: string
+  avatar: string
 }
 
 /**
  * 登录返回的信息
  */
 export interface IUserLogin {
-  id: string
   username: string
+  userCode: string
   token: string
 }
 

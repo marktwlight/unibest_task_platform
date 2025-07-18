@@ -2,18 +2,14 @@ import type { IUserInfoVo } from '@/api/types/login'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import {
-  getUserInfo as _getUserInfo,
   login as _login,
-  logout as _logout,
-  wxLogin as _wxLogin,
-  getWxCode,
 } from '@/api/login'
 import { toast } from '@/utils/toast'
 
 // 初始化状态
 const userInfoState: IUserInfoVo = {
-  id: 0,
   username: '',
+  userCode: '',
   avatar: '/static/images/default-avatar.png',
   token: '',
 }
@@ -46,18 +42,18 @@ export const useUserStore = defineStore(
       uni.removeStorageSync('userInfo')
       uni.removeStorageSync('token')
     }
-    /**
-     * 获取用户信息
-     */
-    const getUserInfo = async () => {
-      const res = await _getUserInfo()
-      const userInfo = res.data
-      setUserInfo(userInfo)
-      uni.setStorageSync('userInfo', userInfo)
-      uni.setStorageSync('token', userInfo.token)
-      // TODO 这里可以增加获取用户路由的方法 根据用户的角色动态生成路由
-      return res
-    }
+    // /**
+    //  * 获取用户信息
+    //  */
+    // const getUserInfo = async () => {
+    //   const res = await _getUserInfo()
+    //   const userInfo = res.data
+    //   setUserInfo(userInfo)
+    //   uni.setStorageSync('userInfo', userInfo)
+    //   uni.setStorageSync('token', userInfo.token)
+    //   // TODO 这里可以增加获取用户路由的方法 根据用户的角色动态生成路由
+    //   return res
+    // }
     /**
      * 用户登录
      * @param credentials 登录参数
@@ -66,43 +62,41 @@ export const useUserStore = defineStore(
     const login = async (credentials: {
       username: string
       password: string
-      code: string
-      uuid: string
     }) => {
       const res = await _login(credentials)
       console.log('登录信息', res)
       toast.success('登录成功')
-      await getUserInfo()
+      // await getUserInfo()
       return res
     }
 
     /**
      * 退出登录 并 删除用户信息
      */
-    const logout = async () => {
-      _logout()
-      removeUserInfo()
-    }
-    /**
-     * 微信登录
-     */
-    const wxLogin = async () => {
-      // 获取微信小程序登录的code
-      const data = await getWxCode()
-      console.log('微信登录code', data)
+    // const logout = async () => {
+    //   _logout()
+    //   removeUserInfo()
+    // }
+    // /**
+    //  * 微信登录
+    //  */
+    // const wxLogin = async () => {
+    //   // 获取微信小程序登录的code
+    //   const data = await getWxCode()
+    //   console.log('微信登录code', data)
 
-      const res = await _wxLogin(data)
-      await getUserInfo()
-      return res
-    }
+    //   const res = await _wxLogin(data)
+    //   await getUserInfo()
+    //   return res
+    // }
 
     return {
       userInfo,
       login,
-      wxLogin,
-      getUserInfo,
+      // wxLogin,
+      // getUserInfo,
       setUserAvatar,
-      logout,
+      // logout,
     }
   },
   {

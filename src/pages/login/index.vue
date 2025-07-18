@@ -16,7 +16,7 @@
     <view class="header">
       <view class="welcome-text">
         <text class="hello">
-          {{ t('login-page-title') }}
+          {{ $t('login-page-title') }}
         </text>
       </view>
     </view>

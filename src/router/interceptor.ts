@@ -32,26 +32,35 @@ const navigateToInterceptor = {
       const baseDir = normalizedCurrentPath.substring(0, normalizedCurrentPath.lastIndexOf('/'))
       path = `${baseDir}/${path}`
     }
+    const whiteList = ['/pages/index/index', '/pages/login/index','/pages/register/index'] // 白名单
+    console.log(path)
 
-    let needLoginPages: string[] = []
+    // const isInWhiteList = whiteList.includes(path)
+    // let needLoginPages: string[] = []
     // 为了防止开发时出现BUG，这里每次都获取一下。生产环境可以移到函数外，性能更好
+    // if (isDev) {
+    //   needLoginPages = getNeedLoginPages()
+    // }
+    // else {
+    //   needLoginPages = _needLoginPages
+    // }
+    // console.log(needLoginPages, path)
+
+    const isNeedLogin = whiteList.includes(path)
+    console.log(isNeedLogin)
+
     if (isDev) {
-      needLoginPages = getNeedLoginPages()
-    }
-    else {
-      needLoginPages = _needLoginPages
-    }
-    const isNeedLogin = needLoginPages.includes(path)
-    if (!isNeedLogin) {
       return true
     }
     const hasLogin = isLogined()
     if (hasLogin) {
       return true
     }
-    const redirectRoute = `${loginRoute}?redirect=${encodeURIComponent(url)}`
-    uni.navigateTo({ url: redirectRoute })
-    return false
+    if (!isNeedLogin) {
+      const redirectRoute = `${loginRoute}?redirect=${encodeURIComponent(url)}`
+      uni.navigateTo({ url: redirectRoute })
+      return false
+    }
   },
 }
 
